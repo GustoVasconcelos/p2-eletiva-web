@@ -75,7 +75,7 @@ class TabletsController
         $returnTablets = $this->tabletsModel->getById($tabCod);
 
         // faz o fecth da tablets
-        $tablets = $returnTablets->fetch(PDO::FETCH_ASSOC);
+        $tablet = $returnTablets->fetch(PDO::FETCH_ASSOC);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // limpa todo o $_POST de uma só vez

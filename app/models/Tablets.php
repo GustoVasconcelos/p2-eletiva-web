@@ -75,7 +75,7 @@ class Tablets {
     public function getById($tabCod) {
         //método de buscar tablet por seu codigo
         try {
-            $comandoSQL= "SELECT * FROM ".$this->tableName." WHERE id = :param1";
+            $comandoSQL= "SELECT * FROM ".$this->tableName." WHERE tab_cod = :param1";
             $acesso = $this->conexao->prepare($comandoSQL);
 
             $acesso->bindParam(":param1", $tabCod);
@@ -115,11 +115,11 @@ class Tablets {
         //método que atualiza o tablet no banco
         try {
             $comandoSQL = "UPDATE ".$this->tableName." SET
-                       titulo = :param2,
-                       descricao = :param3,
-                       data_vencimento = :param4,
-                       status = :param5
-                       WHERE id = :param1";
+                       tab_descricao = :param2,
+                       tab_fabricante = :param3,
+                       tab_numeroserie = :param4,
+                       tab_acessorios = :param5
+                       WHERE tab_cod = :param1";
             $acesso = $this->conexao->prepare($comandoSQL);
 
             $acesso->bindParam(":param2", $descricao);
