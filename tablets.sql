@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30-Set-2025 às 14:59
+-- Tempo de geração: 30-Set-2025 às 16:14
 -- Versão do servidor: 10.4.24-MariaDB
 -- versão do PHP: 8.1.6
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `produtos`
+-- Banco de dados: `protudos`
 --
 
 -- --------------------------------------------------------
@@ -34,6 +34,14 @@ CREATE TABLE `tablets` (
   `tab_numeroserie` varchar(30) NOT NULL,
   `tab_acessorios` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `tablets`
+--
+
+INSERT INTO `tablets` (`tab_cod`, `tab_descricao`, `tab_fabricante`, `tab_numeroserie`, `tab_acessorios`) VALUES
+(3, 'Samsung ABC', 'Sansung', '789', 'Fone de Ouvido'),
+(4, 'Xaoimi', 'Xaiomi', '456', 'Fone de Ouvido');
 
 --
 -- Índices para tabelas despejadas
@@ -53,7 +61,7 @@ ALTER TABLE `tablets`
 -- AUTO_INCREMENT de tabela `tablets`
 --
 ALTER TABLE `tablets`
-  MODIFY `tab_cod` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `tab_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
