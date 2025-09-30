@@ -16,18 +16,18 @@ class TabletsController
         $erros = [];
 
         // valida se o título esta vazio
-        if (!InputHelper::validaRequerido($dados['titulo'])) {
-            $erros[] = "O campo 'titulo' é obrigatório";
-        }
-
-        // valida se a descricao esta vazia
-        if (!InputHelper::validaRequerido($dados['descricao'])) {
+        if (!InputHelper::validaRequerido($dados['tabDescricao'])) {
             $erros[] = "O campo 'descricao' é obrigatório";
         }
 
+        // valida se a descricao esta vazia
+        if (!InputHelper::validaRequerido($dados['tabFabricante'])) {
+            $erros[] = "O campo 'fabricante' é obrigatório";
+        }
+
         // valida se a data de vencimento esta vazia
-        if (!InputHelper::validaRequerido($dados['data_vencimento'])) {
-            $erros[] = "O campo 'vencimento' é obrigatório";
+        if (!InputHelper::validaRequerido($dados['tabNumeroSerie'])) {
+            $erros[] = "O campo 'numero de serie' é obrigatório";
         }
 
         return $erros;
@@ -35,19 +35,8 @@ class TabletsController
 
     // lista todas as tablets, acao principal
     public function listar()
-    {
-        // se não tiver nenhum filtro ativo, ele vai usar por padrão o 'todas'
-        $filtro = $_GET['filtro'] ?? 'todas';
-        // aqui ele verifica para saber se vai chamar o método com ou sem filtro
-        if ($filtro == "todas") {
-            // se estiver sem filtro
-            $tablets = $this->tabletsModel->listAll();
-        } else {
-            // se estiver com filtro
-            $tablets = $this->tabletsModel->listAll($filtro);
-        }
-        // marca o filtro ativo para usar na view
-        $filtro_ativo = $filtro;
+    {   // se estiver sem filtro
+        $tablets = $this->tabletsModel->listAll();
         // chama a view com as listagens
         require ROOT_PATH . '/app/views/tablets/index.php';
     }
@@ -66,7 +55,7 @@ class TabletsController
             // se nao tiver nenhum erro...
             if (empty($erros)) {
                 // recebe os dados e cria a tablets no banco de dados
-                $this->tabletsModel->create($dados['titulo'], $dados['descricao'], $dados['data_vencimento'], $dados['status']);
+                $this->tabletsModel->create($dados['tabDescricao'], $dados['tabFabricante'], $dados['tabNumeroSerie'], $dados['tabAcessorios']);
 
                 // redireciona para a página principal
                 header('Location: index.php?action=listar');
@@ -79,11 +68,11 @@ class TabletsController
     }
 
     // busca a tablets pelo ID, e retorna a pagina de edicao com os dados da tablets
-    public function edit($idTablets)
+    public function edit($tabCod)
     {
 
         // usa o método para buscar a tablets no banco de dados usando o id
-        $returnTablets = $this->tabletsModel->getById($idTablets);
+        $returnTablets = $this->tabletsModel->getById($tabCod);
 
         // faz o fecth da tablets
         $tablets = $returnTablets->fetch(PDO::FETCH_ASSOC);
@@ -98,7 +87,7 @@ class TabletsController
             // se nao tiver nenhum erro...
             if (empty($erros)) {
                 // recebe os dados da view e da um update na tablets no banco de dados
-                $this->tabletsModel->update($idTablets, $dados['titulo'], $dados['descricao'], $dados['data_vencimento'], $dados['status']);
+                $this->tabletsModel->update($tabCod, $dados['tabDescricao'], $dados['tabFabricante'], $dados['tabNumeroSerie'], $dados['tabAcessorios']);
 
                 // redireciona para a página principal
                 header('Location: index.php?action=listar');
@@ -111,11 +100,10 @@ class TabletsController
     }
 
     // processa a exclusao de tablets
-    public function delete($idTablets)
+    public function delete($tabCod)
     {
-
         // chama o método excluir do model e exclui a tablets no banco de dados
-        $this->tabletsModel->delete($idTablets);
+        $this->tabletsModel->delete($tabCod);
 
         // redireciona para a página principal
         header('Location: index.php?action=listar');
