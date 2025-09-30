@@ -7,6 +7,16 @@
     </div>
     <div class="card-body">
         <form action="index.php?action=edit&id=<?php echo $tablet['tab_cod']; ?>" method="POST">
+            <?php if (!empty($erros)): ?>
+                <div class="alert alert-danger">
+                    <strong>Por favor, corrija os erros abaixo:</strong>
+                    <ul>
+                        <?php foreach ($erros as $erro): ?>
+                            <li><?php echo $erro; ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
             <div class="mb-3">
                 <label for="tabDescricao" class="form-label">Descricao</label>
                 <input type="text" class="form-control" id="tabDescricao" name="tabDescricao" value="<?php echo htmlspecialchars($tablet['tab_descricao']); ?>" required>
