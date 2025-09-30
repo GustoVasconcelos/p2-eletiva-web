@@ -141,7 +141,7 @@ class Tablets {
     public function delete($tabCod) {
         //método que deleta um tablet do banco
         try {
-            $comandoSQL = "DELETE FROM ".$this->tableName." WHERE id = :param1";
+            $comandoSQL = "DELETE FROM ".$this->tableName." WHERE tab_cod = :param1";
             $acesso = $this->conexao->prepare($comandoSQL);
 
             $acesso->bindParam(":param1", $tabCod);
